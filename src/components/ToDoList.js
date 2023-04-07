@@ -3,14 +3,18 @@ import ListItem from './ListItem'
 import {AppContext} from '../App'
 
 function ToDoList() {
-    const appContext = useContext(AppContext);
+    const { toDoList, deleteOneTask, filter } = useContext(AppContext);
 
   return (
     <div className="list">
        
-        { (appContext.toDoList) ? <h3>No to do's</h3> : //show todos
-        appContext.toDoList.map((item)=>{
-            return <ListItem key={item.id} item={item} />
+        { (toDoList.length == 0) ? <h3>No to do's</h3> : // no to-dos
+        toDoList.map((item)=>{
+          //show todos
+          if (item.category === filter || filter === "all")
+          return (
+            <ListItem key={item.id} item={item} deleteOneTask={deleteOneTask} />
+          );
         })
     } 
     </div>
