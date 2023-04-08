@@ -3,6 +3,8 @@ import { useState, useContext } from 'react';
 import './App.css';
 import ToDoList from './components/ToDoList';
 import React from "react";
+import Button from "@mui/material/Button";
+import { TextField } from '@mui/material';
 
 export const AppContext = React.createContext();
 
@@ -47,35 +49,71 @@ function App() {
       setToDoList(tasks);
     };
 
+    const updatedTitleForId = (id, newTitle) =>{
+      setToDoList(
+        toDoList.map((item) => {
+          if (item.id === id) {
+            return {
+              ...item,
+              title: newTitle,
+            };
+          }
+          return item;
+        })
+      );
+    }
+
   return (
     <AppContext.Provider
-      value={{ toDoList, deleteOneTask, filter, toggleTaskStatus }}
+      value={{
+        toDoList,
+        deleteOneTask,
+        filter,
+        toggleTaskStatus,
+        updatedTitleForId,
+      }}
     >
       <div className="App">
         <div className="App-header">
           <h1>My To Do List</h1>
 
           <form onSubmit={handleFormSubmit}>
-            <input
+            <TextField
+              id="outlined-basic"
+              // label="Write new task"
+              variant="outlined"
               type="text"
+              size="small"
               onChange={(e) => setInputValue(e.target.value)}
               value={inputValue}
             />
-            <button type="submit">Add new task</button>
+            <Button type="submit" variant="outlined">
+              Add task
+            </Button>
           </form>
 
           <h2>Filter the tasks</h2>
           <div className="filters">
-            <button onClick={() => setFilter("all")}>All</button>
-            <button onClick={() => setFilter("done")}>Done</button>
-            <button onClick={() => setFilter("todo")}>Todo</button>
+            <Button variant="outlined" onClick={() => setFilter("all")}>
+              All
+            </Button>
+            <Button variant="outlined" onClick={() => setFilter("done")}>
+              Done
+            </Button>
+            <Button variant="outlined" onClick={() => setFilter("todo")}>
+              Todo
+            </Button>
           </div>
 
           <ToDoList />
 
           <div className="delete-btn-container">
-            <button onClick={deleteDoneTasks}>Delete done tasks</button>
-            <button onClick={deleteAll}>Delete all tasks</button>
+            <Button variant="outlined" onClick={deleteDoneTasks}>
+              Delete done tasks
+            </Button>
+            <Button variant="outlined" onClick={deleteAll}>
+              Delete all tasks
+            </Button>
           </div>
         </div>
       </div>
@@ -84,3 +122,9 @@ function App() {
 }
 
 export default App;
+
+// check empty value, falsy
+// use html, article, mui, react icons, alert success, danger
+// display if list size is 0
+// useeffect to remove alert self after 2 sec  
+// do not show filters if no tasks
