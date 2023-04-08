@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { useContext } from "react";
 import { AppContext } from "../App";
 import { Button, Checkbox, TextField } from '@mui/material';
+import Modal from './Modal';
+import DeleteIcon from "@mui/icons-material/Delete";
 
 
 function ListItem({ item }) {
@@ -20,6 +22,11 @@ function ListItem({ item }) {
     setInEditMode(false)
   }
 
+  const updateTitleUsingModal = (modalProvidedTitle) =>{
+    updatedTitleForId(id, modalProvidedTitle);
+    setInEditMode(false);
+  }
+
   const startEditMode =()=>{
     setInEditMode(!inEditMode);
     
@@ -32,23 +39,14 @@ function ListItem({ item }) {
         onClick={() => toggleTaskStatus(id)}
       />
 
-      {inEditMode ? (
-        <TextField
-          variant="standard"
-          onChange={handleInputChange}
-          value={newTitle}
-        />
-      ) : (
-        <p>{title}</p>
-      )}
-      {/* <p>{category}</p> */}
+      <p>{title}</p>
+
       <div className="control-Buttons">
-        {inEditMode ? 
-        <Button onClick={updateTitle}>Save</Button>
-        :
-        <Button onClick={startEditMode}>edit</Button>
-        }
-        <Button onClick={() => deleteOneTask(id)}>delete</Button>
+       
+        <Modal title={title} updater={updateTitleUsingModal} />
+        <Button onClick={() => deleteOneTask(id)}>
+          <DeleteIcon htmlColor='red'/>
+        </Button>
       </div>
     </article>
   );
