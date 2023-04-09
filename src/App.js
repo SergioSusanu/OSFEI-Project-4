@@ -1,15 +1,22 @@
 
-import { useState, useContext } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import './App.css';
 import ToDoList from './components/ToDoList';
 import React from "react";
 import Button from "@mui/material/Button";
 import { TextField } from '@mui/material';
 
+//Fetch tasks from local storage 
+const fetchTasksFromLocalStorage = () => {
+  let list = localStorage.getItem('tasks');
+  if (list) return JSON.parse(list);
+  return [];
+}
+
 export const AppContext = React.createContext();
 
 function App() {
-  const [toDoList, setToDoList] = useState([]);
+  const [toDoList, setToDoList] = useState(fetchTasksFromLocalStorage());
   const [inputValue, setInputValue] = useState('');
   const [filter, setFilter] = useState('all');
 
@@ -62,6 +69,11 @@ function App() {
         })
       );
     }
+
+    //Save the tasks in local storage every time the task list gets updated
+    useEffect(()=>{
+      localStorage.setItem('tasks', JSON.stringify(toDoList))
+    }, [toDoList]);
 
   return (
     <AppContext.Provider
