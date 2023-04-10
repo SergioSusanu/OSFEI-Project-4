@@ -1,4 +1,4 @@
-import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { createTheme } from "@mui/material/styles";
 
 export const myThemeColors = createTheme({
   palette: {
@@ -11,7 +11,7 @@ export const myThemeColors = createTheme({
       main: "rgb(128,128,128)",
     },
     error: {
-      // gray
+      // red error
       main: "#da3144",
     },
   },

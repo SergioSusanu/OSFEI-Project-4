@@ -8,7 +8,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import EditIcon from "@mui/icons-material/Edit";
 
 
-export default function Modal({title, updater}) {
+export default function Modal({ title, updateTitleUsingModal }) {
   const [open, setOpen] = React.useState(false);
   const [newTitle, setNewTitle] = React.useState(title);
 
@@ -23,7 +23,7 @@ export default function Modal({title, updater}) {
   return (
     <>
       <Button onClick={handleClickOpen}>
-        <EditIcon htmlColor="orange"/>
+        <EditIcon htmlColor="orange" />
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>Update Task:</DialogTitle>
@@ -32,7 +32,7 @@ export default function Modal({title, updater}) {
             autoFocus
             margin="dense"
             id="name"
-            style={{width:'400px'}}
+            style={{ width: "300px" }}
             value={newTitle}
             type="text"
             variant="outlined"
@@ -44,8 +44,8 @@ export default function Modal({title, updater}) {
           <Button onClick={handleClose}>Cancel</Button>
           <Button
             onClick={() => {
-              if (newTitle){
-                updater(newTitle);
+              if (newTitle) {
+                updateTitleUsingModal(newTitle);
                 handleClose();
               }
             }}

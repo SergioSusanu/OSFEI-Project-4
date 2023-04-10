@@ -10,31 +10,14 @@ function ListItem({ item }) {
   const { id, title, category } = item;
   const { deleteOneTask, toggleTaskStatus, updatedTitleForId } =
     useContext(AppContext);
-  const [inEditMode, setInEditMode] = useState(false);
-  const [newTitle, setNewTitle] = useState(title);
-
-  const handleInputChange = (e)=> {
-    setNewTitle(e.target.value)
-  }
-
-  const updateTitle = () => {
-    updatedTitleForId(id, newTitle);
-    setInEditMode(false)
-  }
 
   const updateTitleUsingModal = (modalProvidedTitle) =>{
     updatedTitleForId(id, modalProvidedTitle);
-    setInEditMode(false);
-  }
-
-  const startEditMode =()=>{
-    setInEditMode(!inEditMode);
-    
   }
 
   return (
     <article className="to-do-item">
-      <div className={category === 'done' ? 'left done' : 'left'}>
+      <div className={category === "done" ? "left done" : "left"}>
         <p>{title}</p>
       </div>
       <div className="right">
@@ -42,10 +25,10 @@ function ListItem({ item }) {
           checked={category === "done"}
           onClick={() => toggleTaskStatus(id)}
         />
-          <Modal title={title} updater={updateTitleUsingModal} />
-          <Button onClick={() => deleteOneTask(id)}>
-            <DeleteIcon htmlColor="red" />
-          </Button>   
+        <Modal title={title} updateTitleUsingModal={updateTitleUsingModal} />
+        <Button onClick={() => deleteOneTask(id)}>
+          <DeleteIcon htmlColor="red" />
+        </Button>
       </div>
     </article>
   );

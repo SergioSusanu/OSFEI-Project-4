@@ -15,67 +15,80 @@ const fetchTasksFromLocalStorage = () => {
   return [];
 }
 
+//Create context 
 export const AppContext = React.createContext();
 
 function App() {
   const [toDoList, setToDoList] = useState(fetchTasksFromLocalStorage());
-  const [inputValue, setInputValue] = useState('');
-  const [filter, setFilter] = useState('all');
+  const [inputValue, setInputValue] = useState("");
+  const [filter, setFilter] = useState("all");
 
+  //New task form submit handler
   const handleFormSubmit = (e) => {
-    e.preventDefault(); // preventing form submit
+    e.preventDefault();
     if (inputValue) {
-      const newItem = {id: new Date().getTime().toString(), title: inputValue, category: "todo"}
+      const newItem = {
+        id: new Date().getTime().toString(),
+        title: inputValue,
+        category: "todo",
+      };
       setToDoList((prev) => [...prev, newItem]);
-      setInputValue('');
+      setInputValue("");
     } else {
-      // TO DO ALERT empty
+      // TO DO Alert on empty
     }
-   
   };
 
   const deleteOneTask = (id) => {
-    const newTasks = toDoList.filter((item) => item.id !== id)
-    setToDoList(newTasks)
-  }
-
-  const toggleTaskStatus = (id) => {
-    setToDoList(toDoList.map((item) => {
-      if (item.id === id) {
-        return {...item, category: item.category === "todo" ? "done" : "todo"}
-      }
-      return item;
-    }))
+    const newTasks = toDoList.filter((item) => item.id !== id);
+    setToDoList(newTasks);
   };
 
-  const deleteAll =()=>{// deletes all tasks
+  const toggleTaskStatus = (id) => {
+    setToDoList(
+      toDoList.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            category: item.category === "todo" ? "done" : "todo",
+          };
+        }
+        return item;
+      })
+    );
+  };
+
+  // deletes all tasks
+  const deleteAll = () => {
     setToDoList([]);
     //TO DO confirmation box before delete
-  }
+  };
 
-    const deleteDoneTasks = () => {
-      const tasks = toDoList.filter((item) => item.category !== "done");
-      setToDoList(tasks);
-    };
+  // deletes all tasks that are done
+  const deleteDoneTasks = () => {
+    const tasks = toDoList.filter((item) => item.category !== "done");
+    setToDoList(tasks);
+  };
 
-    const updatedTitleForId = (id, newTitle) =>{
-      setToDoList(
-        toDoList.map((item) => {
-          if (item.id === id) {
-            return {
-              ...item,
-              title: newTitle,
-            };
-          }
-          return item;
-        })
-      );
-    }
+  //updates one task's title
+  const updatedTitleForId = (id, newTitle) => {
+    setToDoList(
+      toDoList.map((item) => {
+        if (item.id === id) {
+          return {
+            ...item,
+            title: newTitle,
+          };
+        }
+        return item;
+      })
+    );
+  };
 
-    //Save the tasks in local storage every time the task list gets updated
-    useEffect(()=>{
-      localStorage.setItem('tasks', JSON.stringify(toDoList))
-    }, [toDoList]);
+  //Save the tasks in the browser local storage every time the task list gets updated
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(toDoList));
+  }, [toDoList]);
 
   return (
     <AppContext.Provider
@@ -94,11 +107,10 @@ function App() {
               <Typography variant="h4" component="h1">
                 TodoInput
               </Typography>
-
+              {/* New task form */}
               <form onSubmit={handleFormSubmit}>
                 <TextField
                   id="outlined-basic"
-                  // label="Write new task"
                   variant="outlined"
                   type="text"
                   size="small"
@@ -118,7 +130,7 @@ function App() {
               <Typography variant="h4" component="h2">
                 TodoList
               </Typography>
-
+              {/* Filter buttons */}
               <div className="filters">
                 <Button
                   variant="contained"
@@ -142,9 +154,9 @@ function App() {
                   Todo
                 </Button>
               </div>
-
+              {/* Show the tasks */}
               <ToDoList />
-
+              {/* Delete options buttons  */}
               <div className="delete-btn-container">
                 <Button
                   variant="contained"
