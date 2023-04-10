@@ -34,7 +34,7 @@ function ListItem({ item }) {
 
   return (
     <article className="to-do-item">
-      <div className="left">
+      <div className={category === 'done' ? 'left done' : 'left'}>
         <p>{title}</p>
       </div>
       <div className="right">
