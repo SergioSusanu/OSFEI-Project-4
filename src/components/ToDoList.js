@@ -7,8 +7,7 @@ function ToDoList() {
     const { toDoList, deleteOneTask, filter } = useContext(AppContext);
 
   return (
-    <div className="list">
-       
+    <div className="list">     
         { (toDoList.length == 0) ? 
         <Typography  variant="h4" component="h2">No tasks</Typography>
         : // no to-dos

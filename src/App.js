@@ -54,7 +54,7 @@ function App() {
   }
 
     const deleteDoneTasks = () => {
-      const tasks = toDoList.filter((item) => item.category != "done");
+      const tasks = toDoList.filter((item) => item.category !== "done");
       setToDoList(tasks);
     };
 
@@ -173,6 +173,7 @@ function App() {
 
 export default App;
 
+//MORE TO DO TASKS
 // check empty value, falsy
 // use html, article, mui, react icons, alert success, danger
 // display if list size is 0
