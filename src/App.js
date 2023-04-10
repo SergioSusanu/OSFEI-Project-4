@@ -4,7 +4,9 @@ import './App.css';
 import ToDoList from './components/ToDoList';
 import React from "react";
 import Button from "@mui/material/Button";
-import { TextField } from '@mui/material';
+import { TextField, Typography } from '@mui/material';
+import {ThemeProvider } from "@mui/material/styles";
+import { myThemeColors } from './Theme';
 
 //Fetch tasks from local storage 
 const fetchTasksFromLocalStorage = () => {
@@ -85,50 +87,86 @@ function App() {
         updatedTitleForId,
       }}
     >
-      <div className="App">
-        <div className="App-header">
-          <h1>My To Do List</h1>
+      <ThemeProvider theme={myThemeColors}>
+        <div className="App">
+          <div className="wrapper">
+            <div className="content">
+              <Typography variant="h4" component="h1">
+                TodoInput
+              </Typography>
 
-          <form onSubmit={handleFormSubmit}>
-            <TextField
-              id="outlined-basic"
-              // label="Write new task"
-              variant="outlined"
-              type="text"
-              size="small"
-              onChange={(e) => setInputValue(e.target.value)}
-              value={inputValue}
-            />
-            <Button type="submit" variant="outlined">
-              Add task
-            </Button>
-          </form>
+              <form onSubmit={handleFormSubmit}>
+                <TextField
+                  id="outlined-basic"
+                  // label="Write new task"
+                  variant="outlined"
+                  type="text"
+                  size="small"
+                  onChange={(e) => setInputValue(e.target.value)}
+                  value={inputValue}
+                />
+                <Button
+                  type="submit"
+                  variant="contained"
+                  className="form-btn"
+                  disableElevation
+                >
+                  Add new task
+                </Button>
+              </form>
 
-          <h2>Filter the tasks</h2>
-          <div className="filters">
-            <Button variant="outlined" onClick={() => setFilter("all")}>
-              All
-            </Button>
-            <Button variant="outlined" onClick={() => setFilter("done")}>
-              Done
-            </Button>
-            <Button variant="outlined" onClick={() => setFilter("todo")}>
-              Todo
-            </Button>
-          </div>
+              <Typography variant="h4" component="h2">
+                TodoList
+              </Typography>
 
-          <ToDoList />
+              <div className="filters">
+                <Button
+                  variant="contained"
+                  onClick={() => setFilter("all")}
+                  disableElevation
+                >
+                  All
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={() => setFilter("done")}
+                  disableElevation
+                >
+                  Done
+                </Button>
+                <Button
+                  variant="contained"
+                  onClick={() => setFilter("todo")}
+                  disableElevation
+                >
+                  Todo
+                </Button>
+              </div>
 
-          <div className="delete-btn-container">
-            <Button variant="outlined" onClick={deleteDoneTasks}>
-              Delete done tasks
-            </Button>
-            <Button variant="outlined" onClick={deleteAll}>
-              Delete all tasks
-            </Button>
+              <ToDoList />
+
+              <div className="delete-btn-container">
+                <Button
+                  variant="contained"
+                  disableElevation
+                  color="error"
+                  onClick={deleteDoneTasks}
+                >
+                  Delete done tasks
+                </Button>
+                <Button
+                  variant="contained"
+                  disableElevation
+                  color="error"
+                  onClick={deleteAll}
+                >
+                  Delete all tasks
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
-      </div>
+      </ThemeProvider>
     </AppContext.Provider>
   );
 }

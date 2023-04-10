@@ -22,8 +22,8 @@ export default function Modal({title, updater}) {
   };
 
   return (
-    <div>
-      <Button variant="outlined" onClick={handleClickOpen}>
+    <>
+      <Button onClick={handleClickOpen}>
         <EditIcon htmlColor="orange"/>
       </Button>
       <Dialog open={open} onClose={handleClose}>
@@ -54,6 +54,6 @@ export default function Modal({title, updater}) {
           </Button>
         </DialogActions>
       </Dialog>
-    </div>
+    </>
   );
 }

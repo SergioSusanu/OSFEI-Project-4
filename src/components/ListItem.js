@@ -34,19 +34,18 @@ function ListItem({ item }) {
 
   return (
     <article className="to-do-item">
-      <Checkbox
-        checked={category === "done"}
-        onClick={() => toggleTaskStatus(id)}
-      />
-
-      <p>{title}</p>
-
-      <div className="control-Buttons">
-       
-        <Modal title={title} updater={updateTitleUsingModal} />
-        <Button onClick={() => deleteOneTask(id)}>
-          <DeleteIcon htmlColor='red'/>
-        </Button>
+      <div className="left">
+        <p>{title}</p>
+      </div>
+      <div className="right">
+        <Checkbox
+          checked={category === "done"}
+          onClick={() => toggleTaskStatus(id)}
+        />
+          <Modal title={title} updater={updateTitleUsingModal} />
+          <Button onClick={() => deleteOneTask(id)}>
+            <DeleteIcon htmlColor="red" />
+          </Button>   
       </div>
     </article>
   );

@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import ListItem from './ListItem'
 import {AppContext} from '../App'
+import { Typography } from '@mui/material';
 
 function ToDoList() {
     const { toDoList, deleteOneTask, filter } = useContext(AppContext);
@@ -8,7 +9,9 @@ function ToDoList() {
   return (
     <div className="list">
        
-        { (toDoList.length == 0) ? <h3>No to do's</h3> : // no to-dos
+        { (toDoList.length == 0) ? 
+        <Typography  variant="h4" component="h2">No tasks</Typography>
+        : // no to-dos
         toDoList.map((item)=>{
           //show todos
           if (item.category === filter || filter === "all")
