@@ -8,8 +8,9 @@ import { ThemeProvider } from "@mui/material/styles";
 import { myThemeColors } from "./Theme";
 import FilterUsingButtons from "./components/FilterOptions/FilterUsingButtons";
 import FilterUsingSelect from "./components/FilterOptions/FilterUsingSelect";
-
+import FilterSection from "./components/FilterOptions/FilterSection";
 import Header from "./components/Header/Header";
+import DeleteButtons from "./components/DeleteButtons";
 
 //Fetch tasks from local storage
 const fetchTasksFromLocalStorage = () => {
@@ -17,6 +18,7 @@ const fetchTasksFromLocalStorage = () => {
   if (list) return JSON.parse(list);
   return [];
 };
+
 
 //Create context
 export const AppContext = React.createContext();
@@ -26,7 +28,7 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const [filter, setFilter] = useState("all");
   const [settingsFilter, setSettingsFilter] = useState('buttons');
-
+  const [doneTasksPresent, setDoneTasksPresent] = useState(false);
   //New task form submit handler
   const handleFormSubmit = (e) => {
     e.preventDefault();
@@ -91,7 +93,16 @@ function App() {
 
   //Save the tasks in the browser local storage every time the task list gets updated
   useEffect(() => {
+    // save to local storagge
     localStorage.setItem("tasks", JSON.stringify(toDoList));
+    // check if we have done tasks
+     let present = false;
+     toDoList.forEach((element) => {
+       if (element.category === "done") {
+         present = true;
+       }
+     });
+     setDoneTasksPresent(present);
   }, [toDoList]);
 
   return (
@@ -105,6 +116,9 @@ function App() {
         setFilter,
         settingsFilter,
         setSettingsFilter,
+        deleteAll,
+        deleteDoneTasks,
+        doneTasksPresent
       }}
     >
       <ThemeProvider theme={myThemeColors}>
@@ -132,41 +146,12 @@ function App() {
                   Add new task
                 </Button>
               </form>
-              
-              {/* FILTER SECTION */}
-              {settingsFilter === "buttons" && 
-              <Typography variant="h4" component="h2">
-                Filter tasks:
-              </Typography>
-}
-              {/* Filter buttons */}
-              {settingsFilter === "buttons" ? (
-                <FilterUsingButtons />
-              ) : (
-                <FilterUsingSelect />
-              )}
 
-              {/* Show the tasks */}
+              {doneTasksPresent && <FilterSection />}
+
               <ToDoList />
-              {/* Delete options buttons  */}
-              <div className="delete-btn-container">
-                <Button
-                  variant="contained"
-                  disableElevation
-                  color="error"
-                  onClick={deleteDoneTasks}
-                >
-                  Delete done tasks
-                </Button>
-                <Button
-                  variant="contained"
-                  disableElevation
-                  color="error"
-                  onClick={deleteAll}
-                >
-                  Delete all tasks
-                </Button>
-              </div>
+
+              <DeleteButtons />
             </div>
           </div>
         </div>

@@ -14,6 +14,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { AppContext } from '../../App';
 
+
  
 
 function Header() {
@@ -41,7 +42,7 @@ function Header() {
   return (
     <div className="header">
       <Typography variant="h4" component="h1">
-        My To Do List
+        Add new tasks:
       </Typography>
       <Button variant="outlined" onClick={handleClickOpen}>
         <SettingsIcon />
