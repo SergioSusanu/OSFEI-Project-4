@@ -132,16 +132,20 @@ function App() {
                   Add new task
                 </Button>
               </form>
-
+              
+              {/* FILTER SECTION */}
+              {settingsFilter === "buttons" && 
               <Typography variant="h4" component="h2">
                 Filter tasks:
               </Typography>
+}
               {/* Filter buttons */}
-              {settingsFilter === 'buttons' ? 
-              <FilterUsingButtons />
-              :
-              <FilterUsingSelect />
-    }
+              {settingsFilter === "buttons" ? (
+                <FilterUsingButtons />
+              ) : (
+                <FilterUsingSelect />
+              )}
+
               {/* Show the tasks */}
               <ToDoList />
               {/* Delete options buttons  */}
