@@ -4,28 +4,27 @@ import { Button} from '@mui/material';
 
 function FilterUsingButtons() {
 
-    const { setFilter } = useContext(AppContext);
+    const { filter, setFilter } = useContext(AppContext);
 
   return (
     <>
       <div className="filters">
-        
         <Button
-          variant="contained"
+          variant={filter === "all" ? "contained" : "outlined"}
           onClick={() => setFilter("all")}
           disableElevation
         >
           All
         </Button>
         <Button
-          variant="contained"
+          variant={filter === "done" ? "contained" : "outlined"}
           onClick={() => setFilter("done")}
           disableElevation
         >
           Done
         </Button>
         <Button
-          variant="contained"
+          variant={filter === "todo" ? "contained" : "outlined"}
           onClick={() => setFilter("todo")}
           disableElevation
         >
