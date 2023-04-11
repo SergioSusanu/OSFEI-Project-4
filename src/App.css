@@ -24,6 +24,13 @@ width: 90%;
   gap:10px;
 }
 
+/*App header*/
+.header{
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+}
+
 /* New task form */
 form{
   display: flex;
@@ -103,3 +110,5 @@ color:red;
 .MuiButton-root{
   min-width: 40px !important;
 }
+
+

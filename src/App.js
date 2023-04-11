@@ -1,28 +1,31 @@
-
-import { useState, useContext, useEffect } from 'react';
-import './App.css';
-import ToDoList from './components/ToDoList';
+import { useState, useContext, useEffect } from "react";
+import "./App.css";
+import ToDoList from "./components/ToDoList";
 import React from "react";
 import Button from "@mui/material/Button";
-import { TextField, Typography } from '@mui/material';
-import {ThemeProvider } from "@mui/material/styles";
-import { myThemeColors } from './Theme';
-import FilterUsingButtons from './components/FilterUsingButtons';
+import { TextField, Typography } from "@mui/material";
+import { ThemeProvider } from "@mui/material/styles";
+import { myThemeColors } from "./Theme";
+import FilterUsingButtons from "./components/FilterOptions/FilterUsingButtons";
+import FilterUsingSelect from "./components/FilterOptions/FilterUsingSelect";
 
-//Fetch tasks from local storage 
+import Header from "./components/Header/Header";
+
+//Fetch tasks from local storage
 const fetchTasksFromLocalStorage = () => {
-  let list = localStorage.getItem('tasks');
+  let list = localStorage.getItem("tasks");
   if (list) return JSON.parse(list);
   return [];
-}
+};
 
-//Create context 
+//Create context
 export const AppContext = React.createContext();
 
 function App() {
   const [toDoList, setToDoList] = useState(fetchTasksFromLocalStorage());
   const [inputValue, setInputValue] = useState("");
   const [filter, setFilter] = useState("all");
+  const [settingsFilter, setSettingsFilter] = useState('buttons');
 
   //New task form submit handler
   const handleFormSubmit = (e) => {
@@ -99,16 +102,17 @@ function App() {
         filter,
         toggleTaskStatus,
         updatedTitleForId,
-        setFilter
+        setFilter,
+        settingsFilter,
+        setSettingsFilter,
       }}
     >
       <ThemeProvider theme={myThemeColors}>
         <div className="App">
           <div className="wrapper">
             <div className="content">
-              <Typography variant="h4" component="h1">
-                TodoInput
-              </Typography>
+              <Header />
+
               {/* New task form */}
               <form onSubmit={handleFormSubmit}>
                 <TextField
@@ -130,10 +134,14 @@ function App() {
               </form>
 
               <Typography variant="h4" component="h2">
-                TodoList
+                Filter tasks:
               </Typography>
               {/* Filter buttons */}
+              {settingsFilter === 'buttons' ? 
               <FilterUsingButtons />
+              :
+              <FilterUsingSelect />
+    }
               {/* Show the tasks */}
               <ToDoList />
               {/* Delete options buttons  */}
@@ -169,5 +177,5 @@ export default App;
 // check empty value, falsy
 // use html, article, mui, react icons, alert success, danger
 // display if list size is 0
-// useeffect to remove alert self after 2 sec  
+// useeffect to remove alert self after 2 sec
 // do not show filters if no tasks

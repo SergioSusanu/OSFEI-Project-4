@@ -1,10 +1,9 @@
-import React, {useContext} from 'react'
-import { AppContext } from '../App';
-import { Button} from '@mui/material';
+import React, { useContext } from "react";
+import { AppContext } from "../../App";
+import { Button } from "@mui/material";
 
 function FilterUsingButtons() {
-
-    const { filter, setFilter } = useContext(AppContext);
+  const { filter, setFilter } = useContext(AppContext);
 
   return (
     <>
@@ -35,4 +34,4 @@ function FilterUsingButtons() {
   );
 }
 
-export default FilterUsingButtons
+export default FilterUsingButtons;
