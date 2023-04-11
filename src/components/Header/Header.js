@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import { Typography} from '@mui/material';
 import SettingsIcon from "@mui/icons-material/Settings";
 import Button from "@mui/material/Button";
@@ -14,36 +14,13 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { AppContext } from '../../App';
 
-const SettingsFilterSelect = () =>{
-  const {settingsFilter, setSettingsFilter} = useContext(AppContext)
-  
-
-  const handleChange= (e)=>{
-    setSettingsFilter(e.target.value)
-  }
-
-  return (
-   <Box sx={{ minWidth: 200, marginTop: '10px' }}>
-      <FormControl fullWidth>
-        <InputLabel id="demo-simple-select-label">Filter using:</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={settingsFilter}
-          label="Filter using: "
-          onChange={handleChange}
-        >
-          <MenuItem value='buttons'>Buttons</MenuItem>
-          <MenuItem value='dropdown'>Drop Down</MenuItem>
-         
-        </Select>
-      </FormControl>
-    </Box>
-    );
-} 
+ 
 
 function Header() {
    const [open, setOpen] = React.useState(false);
+   const {settingsFilter, setSettingsFilter} = useContext(AppContext)
+   const [localSelect, setLocalSelect] = useState(settingsFilter);
+
    const handleClickOpen = () => {
      setOpen(true);
    };
@@ -52,7 +29,14 @@ function Header() {
      setOpen(false);
    };
 
-   
+   const handleSelectChange = (e) =>{
+    setLocalSelect(e.target.value);
+   }
+
+   const handleApplyChanges = ()=>{
+    setSettingsFilter(localSelect);
+    handleClose();
+   }
 
   return (
     <div className="header">
@@ -66,11 +50,29 @@ function Header() {
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle>App Settings</DialogTitle>
         <DialogContent>
-          <SettingsFilterSelect />
+          {/* Drop Down */}
+          <Box sx={{ minWidth: 200, marginTop: "10px" }}>
+            <FormControl fullWidth>
+              <InputLabel id="demo-simple-select-label">
+                Filter using:
+              </InputLabel>
+              <Select
+                labelId="demo-simple-select-label"
+                id="demo-simple-select"
+                value={localSelect}
+                label="Filter using: "
+                onChange={handleSelectChange}
+              >
+                <MenuItem value="buttons">Buttons</MenuItem>
+                <MenuItem value="dropdown">Drop Down</MenuItem>
+              </Select>
+            </FormControl>
+          </Box>
         </DialogContent>
+        {/* Action buttons */}
         <DialogActions>
           <Button onClick={handleClose}>Close</Button>
-          <Button onClick={handleClose}>Apply</Button>
+          <Button onClick={handleApplyChanges}>Apply</Button>
         </DialogActions>
       </Dialog>
     </div>
