@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import { TextField, Typography } from '@mui/material';
 import {ThemeProvider } from "@mui/material/styles";
 import { myThemeColors } from './Theme';
+import FilterUsingButtons from './components/FilterUsingButtons';
 
 //Fetch tasks from local storage 
 const fetchTasksFromLocalStorage = () => {
@@ -98,6 +99,7 @@ function App() {
         filter,
         toggleTaskStatus,
         updatedTitleForId,
+        setFilter
       }}
     >
       <ThemeProvider theme={myThemeColors}>
@@ -131,29 +133,7 @@ function App() {
                 TodoList
               </Typography>
               {/* Filter buttons */}
-              <div className="filters">
-                <Button
-                  variant="contained"
-                  onClick={() => setFilter("all")}
-                  disableElevation
-                >
-                  All
-                </Button>
-                <Button
-                  variant="contained"
-                  onClick={() => setFilter("done")}
-                  disableElevation
-                >
-                  Done
-                </Button>
-                <Button
-                  variant="contained"
-                  onClick={() => setFilter("todo")}
-                  disableElevation
-                >
-                  Todo
-                </Button>
-              </div>
+              <FilterUsingButtons />
               {/* Show the tasks */}
               <ToDoList />
               {/* Delete options buttons  */}
