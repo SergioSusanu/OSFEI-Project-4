@@ -2,10 +2,15 @@ import React, { useContext } from 'react'
 import ListItem from './ListItem'
 import {AppContext} from '../App'
 import { Typography } from '@mui/material';
+import { useSelector, useDispatch } from 'react-redux';
 
 function ToDoList() {
-  const { toDoList, deleteOneTask, filter, doneTasksPresent } =
+  const {  deleteOneTask, filter, doneTasksPresent } =
     useContext(AppContext);
+
+  const dispatch = useDispatch()
+  const toDoList = useSelector((state) => state.tasks.items)
+
 
    if (toDoList.length === 0)  // no to-dos
        return (

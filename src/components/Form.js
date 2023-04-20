@@ -2,11 +2,14 @@ import React from 'react'
 import { Button, TextField } from '@mui/material';
 import { useContext, useState } from 'react';
 import { AppContext } from '../App';
+import { addTask } from '../features/tasks/tasksSlice';
+import { useDispatch } from 'react-redux';
 
 const Form = () => {
   const [inputValue, setInputValue] = useState("");
+  const dispatch = useDispatch() 
 
-  const {setToDoList } = useContext(AppContext);
+  // const {setToDoList } = useContext(AppContext);
 
   //New task form submit handler
   const handleFormSubmit = (e) => {
@@ -17,7 +20,8 @@ const Form = () => {
         title: inputValue,
         category: "todo",
       };
-      setToDoList((prev) => [...prev, newItem]);
+      // setToDoList((prev) => [...prev, newItem]);
+      dispatch(addTask(newItem))
       setInputValue("");
     } else {
       // TO DO Alert on empty
@@ -46,4 +50,4 @@ const Form = () => {
   );
 }
 
-export default Form
+export default Form  
