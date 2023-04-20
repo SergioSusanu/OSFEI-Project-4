@@ -6,13 +6,18 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveFilter } from "../../features/filters/filtersSlice";
 
 
 function FilterUsingSelect() {
-    const { filter, setFilter } = useContext(AppContext);
+    // const { filter, setFilter } = useContext(AppContext);
+    const dispatch = useDispatch();
+    const filter = useSelector((state) => state.filters.activeFilter);
 
      const handleChange = (event) => {
-       setFilter(event.target.value);
+      //  setFilter(event.target.value);
+      dispatch(setActiveFilter(event.target.value))
      };
 
   return (

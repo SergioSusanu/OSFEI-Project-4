@@ -13,13 +13,15 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { AppContext } from '../../App';
-
+import { useDispatch, useSelector } from 'react-redux';
+import {setSettingFilterUI} from '../../features/filters/filtersSlice'
 
  
 
 function Header() {
    const [open, setOpen] = React.useState(false);
-   const {settingsFilter, setSettingsFilter} = useContext(AppContext)
+   const dispatch = useDispatch()
+   const settingsFilter = useSelector((state) => state.filters.settingFilterUI);
    const [localSelect, setLocalSelect] = useState(settingsFilter);
 
    const handleClickOpen = () => {
@@ -35,7 +37,8 @@ function Header() {
    }
 
    const handleApplyChanges = ()=>{
-    setSettingsFilter(localSelect);
+    //setSettingsFilter(localSelect);
+    dispatch(setSettingFilterUI(localSelect));
     handleClose();
    }
 

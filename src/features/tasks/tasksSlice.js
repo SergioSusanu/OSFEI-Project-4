@@ -1,18 +1,16 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+
+//Fetch tasks from local storage
+const fetchTasksFromLocalStorage = () => {
+  let list = localStorage.getItem("tasks");
+//   console.log(list);
+  if (list !== 'undefined') return JSON.parse(list);
+  return [];
+};
+
 const initialState = {
-  items: [
-    {
-      id: '1',
-      title: "aa",
-      category: "todo",
-    },
-    {
-      id: '2',
-      title: "bb",
-      category: "done",
-    },
-  ],
+  items: fetchTasksFromLocalStorage()
 };
 
 export const tasksSlice = createSlice({

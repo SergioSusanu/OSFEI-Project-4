@@ -1,9 +1,17 @@
 import React, { useContext } from "react";
 import { AppContext } from "../../App";
 import { Button } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { setActiveFilter } from "../../features/filters/filtersSlice";
 
 function FilterUsingButtons() {
-  const { filter, setFilter } = useContext(AppContext);
+  // const { filter, setFilter } = useContext(AppContext);
+  const dispatch = useDispatch()
+  const filter = useSelector((state)=>state.filters.activeFilter)
+
+  const setFilter = (f) => {
+    dispatch(setActiveFilter(f))
+  }
 
   return (
     <>

@@ -5,11 +5,12 @@ import { Typography } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 
 function ToDoList() {
-  const {  deleteOneTask, filter, doneTasksPresent } =
-    useContext(AppContext);
+  // const {  deleteOneTask, filter, doneTasksPresent } =
+  //   useContext(AppContext);
 
   const dispatch = useDispatch()
   const toDoList = useSelector((state) => state.tasks.items)
+   const filter = useSelector((state) => state.filters.activeFilter);
 
   if (toDoList.length === 0)  // no to-dos
        return (
@@ -19,15 +20,15 @@ function ToDoList() {
   return (
     <div className="list">
       {/* show todos */}
-      {!doneTasksPresent &&
+     
       <Typography variant="h4" component="h2">
         Tasks:
-      </Typography>}
+      </Typography>
 
       {toDoList.map((item) => {
         if (item.category === filter || filter === "all")
           return (
-            <ListItem key={item.id} item={item} deleteOneTask={deleteOneTask} />
+            <ListItem key={item.id} item={item}  />
           );
       })}
     </div>
