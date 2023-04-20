@@ -1,32 +1,32 @@
-import React,{useContext} from 'react'
+import React from 'react'
 import { Button } from '@mui/material'
-import { AppContext } from '../App';
+import { useSelector, useDispatch } from 'react-redux';
+import { deleteAllTasks, deleteDoneTasks } from '../features/tasks/tasksSlice';
 
 function DeleteButtons() {
 
-     const { deleteDoneTasks, deleteAll, toDoList, doneTasksPresent } =
-       useContext(AppContext);
-
+      const toDoList = useSelector((state) => state.tasks.items)
+      const dispatch =  useDispatch()
+    
       if (toDoList.length === 0) return <></>;
-
 
   return (
     <div className="delete-btn-container">
-      {doneTasksPresent &&
+     
       <Button
         variant="contained"
         disableElevation
         color="error"
-        onClick={deleteDoneTasks}
+        onClick={()=> dispatch(deleteDoneTasks())}
       >
         Delete done tasks
       </Button>
-}
+
       <Button
         variant="contained"
         disableElevation
         color="error"
-        onClick={deleteAll}
+        onClick={() => dispatch(deleteAllTasks())}
       >
         Delete all tasks
       </Button>

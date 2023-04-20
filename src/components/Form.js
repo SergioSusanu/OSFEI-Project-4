@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, TextField } from '@mui/material';
-import { useContext, useState } from 'react';
-import { AppContext } from '../App';
+import {  useState } from 'react';
+
 import { addTask } from '../features/tasks/tasksSlice';
 import { useDispatch } from 'react-redux';
 

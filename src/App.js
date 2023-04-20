@@ -28,67 +28,15 @@ function App() {
   const [toDoList, setToDoList] = useState(fetchTasksFromLocalStorage());
   const [filter, setFilter] = useState("all");
   const [settingsFilter, setSettingsFilter] = useState('buttons');
-  const [doneTasksPresent, setDoneTasksPresent] = useState(false);
+ 
  
 
-  const deleteOneTask = (id) => {
-    const newTasks = toDoList.filter((item) => item.id !== id);
-    setToDoList(newTasks);
-  };
-
-  const toggleTaskStatus = (id) => {
-    setToDoList(
-      toDoList.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            category: item.category === "todo" ? "done" : "todo",
-          };
-        }
-        return item;
-      })
-    );
-  };
-
-  // deletes all tasks
-  const deleteAll = () => {
-    setToDoList([]);
-    //TO DO confirmation box before delete
-  };
-
-  // deletes all tasks that are done
-  const deleteDoneTasks = () => {
-    const tasks = toDoList.filter((item) => item.category !== "done");
-    setToDoList(tasks);
-  };
-
-  //updates one task's title
-  const updatedTitleForId = (id, newTitle) => {
-    setToDoList(
-      toDoList.map((item) => {
-        if (item.id === id) {
-          return {
-            ...item,
-            title: newTitle,
-          };
-        }
-        return item;
-      })
-    );
-  };
 
   //Save the tasks in the browser local storage every time the task list gets updated
   useEffect(() => {
     // save to local storagge
     localStorage.setItem("tasks", JSON.stringify(toDoList));
-    // check if we have done tasks
-     let present = false;
-     toDoList.forEach((element) => {
-       if (element.category === "done") {
-         present = true;
-       }
-     });
-     setDoneTasksPresent(present);
+
   }, [toDoList]);
 
   return (
@@ -96,16 +44,11 @@ function App() {
       value={{
         toDoList,
         setToDoList,
-        deleteOneTask,
+   
         filter,
-        toggleTaskStatus,
-        updatedTitleForId,
         setFilter,
         settingsFilter,
         setSettingsFilter,
-        deleteAll,
-        deleteDoneTasks,
-        doneTasksPresent
       }}
     >
       <ThemeProvider theme={myThemeColors}>
@@ -114,7 +57,7 @@ function App() {
             <div className="content">
               <Header />
               <Form />
-              {doneTasksPresent && <FilterSection />}
+              <FilterSection />
               <ToDoList />
               <DeleteButtons />
             </div>

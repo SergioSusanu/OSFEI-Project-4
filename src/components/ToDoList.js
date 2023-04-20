@@ -11,8 +11,7 @@ function ToDoList() {
   const dispatch = useDispatch()
   const toDoList = useSelector((state) => state.tasks.items)
 
-
-   if (toDoList.length === 0)  // no to-dos
+  if (toDoList.length === 0)  // no to-dos
        return (
       <div></div>
        )
