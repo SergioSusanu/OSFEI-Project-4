@@ -11,6 +11,7 @@ import FilterUsingSelect from "./components/FilterOptions/FilterUsingSelect";
 import FilterSection from "./components/FilterOptions/FilterSection";
 import Header from "./components/Header/Header";
 import DeleteButtons from "./components/DeleteButtons";
+import Form from "./components/Form";
 
 //Fetch tasks from local storage
 const fetchTasksFromLocalStorage = () => {
@@ -25,25 +26,10 @@ export const AppContext = React.createContext();
 
 function App() {
   const [toDoList, setToDoList] = useState(fetchTasksFromLocalStorage());
-  const [inputValue, setInputValue] = useState("");
   const [filter, setFilter] = useState("all");
   const [settingsFilter, setSettingsFilter] = useState('buttons');
   const [doneTasksPresent, setDoneTasksPresent] = useState(false);
-  //New task form submit handler
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    if (inputValue) {
-      const newItem = {
-        id: new Date().getTime().toString(),
-        title: inputValue,
-        category: "todo",
-      };
-      setToDoList((prev) => [...prev, newItem]);
-      setInputValue("");
-    } else {
-      // TO DO Alert on empty
-    }
-  };
+ 
 
   const deleteOneTask = (id) => {
     const newTasks = toDoList.filter((item) => item.id !== id);
@@ -109,6 +95,7 @@ function App() {
     <AppContext.Provider
       value={{
         toDoList,
+        setToDoList,
         deleteOneTask,
         filter,
         toggleTaskStatus,
@@ -126,31 +113,9 @@ function App() {
           <div className="wrapper">
             <div className="content">
               <Header />
-
-              {/* New task form */}
-              <form onSubmit={handleFormSubmit}>
-                <TextField
-                  id="outlined-basic"
-                  variant="outlined"
-                  type="text"
-                  size="small"
-                  onChange={(e) => setInputValue(e.target.value)}
-                  value={inputValue}
-                />
-                <Button
-                  type="submit"
-                  variant="contained"
-                  className="form-btn"
-                  disableElevation
-                >
-                  Add new task
-                </Button>
-              </form>
-
+              <Form />
               {doneTasksPresent && <FilterSection />}
-
               <ToDoList />
-
               <DeleteButtons />
             </div>
           </div>
