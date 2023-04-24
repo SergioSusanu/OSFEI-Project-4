@@ -5,7 +5,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const fetchTasksFromLocalStorage = () => {
   let list = localStorage.getItem("tasks");
 //   console.log(list);
-  if (list !== 'undefined') return JSON.parse(list);
+  if (list) return JSON.parse(list);
   return [];
 };
 

@@ -47,7 +47,7 @@ function Header() {
       <Typography variant="h4" component="h1">
         Add new tasks:
       </Typography>
-      <Button variant="outlined" onClick={handleClickOpen}>
+      <Button variant="contained" onClick={handleClickOpen}>
         <SettingsIcon />
       </Button>
 
