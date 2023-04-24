@@ -37,7 +37,6 @@ function Header() {
    }
 
    const handleApplyChanges = ()=>{
-    //setSettingsFilter(localSelect);
     dispatch(setSettingFilterUI(localSelect));
     handleClose();
    }
@@ -68,7 +67,8 @@ function Header() {
                 onChange={handleSelectChange}
               >
                 <MenuItem value="buttons">Buttons</MenuItem>
-                <MenuItem value="dropdown">Drop Down</MenuItem>
+                <MenuItem value="select">Drop Down</MenuItem>
+                <MenuItem value="radiobuttons">Radio Buttons</MenuItem>
               </Select>
             </FormControl>
           </Box>

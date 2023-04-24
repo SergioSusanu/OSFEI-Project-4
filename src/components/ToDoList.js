@@ -19,12 +19,6 @@ function ToDoList() {
       
   return (
     <div className="list">
-      {/* show todos */}
-     
-      <Typography variant="h4" component="h2">
-        Tasks:
-      </Typography>
-
       {toDoList.map((item) => {
         if (item.category === filter || filter === "all")
           return (

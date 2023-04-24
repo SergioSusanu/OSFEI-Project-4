@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
-import { AppContext } from "../../App";
+import React from "react";
 import { Button } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { setActiveFilter } from "../../features/filters/filtersSlice";
 
 function FilterUsingButtons() {
-  // const { filter, setFilter } = useContext(AppContext);
+
   const dispatch = useDispatch()
   const filter = useSelector((state)=>state.filters.activeFilter)
 
